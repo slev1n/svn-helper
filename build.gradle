@@ -44,3 +44,8 @@ patchPluginXml {
       Its the first Version:)<br>
       """
 }
+
+publishPlugin {
+    username intellijPublishUsername
+    password intellijPublishPassword
+}
