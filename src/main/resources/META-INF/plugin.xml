@@ -1,0 +1,22 @@
+<idea-plugin>
+    <id>de.kostue.svn-helper</id>
+    <name>SVN Helper</name>
+    <version>0.0.1</version>
+    <vendor email="matthias.kolodzik@gmx.de" url="https://github.com/slev1n/svn-helper">KoStue</vendor>
+    <depends>com.intellij.modules.platform</depends>
+
+    <description>Just a little Helper for working with SVN. It shows enhanced details (inclusive file paths and sate) on repository view.</description>
+
+    <depends>com.intellij.modules.lang</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationService serviceImplementation="de.kostue.config.SvnHelperAppState"/>
+        <applicationConfigurable instance="de.kostue.ui.config.SvnHelperConfigurable" id="de.kostue.ui.config." />
+    </extensions>
+
+    <actions>
+        <action id="EnhancedVcsDetails" class="de.kostue.ui.actions.EnhancedVcsDetails" text="Show and Copy Enhanced Details" icon="AllIcons.Actions.PreviewDetailsVertically">
+            <add-to-group group-id="CommittedChangesToolbar" anchor="first"/>
+        </action>
+    </actions>
+</idea-plugin>
