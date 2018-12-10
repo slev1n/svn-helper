@@ -15,7 +15,7 @@
     </extensions>
 
     <actions>
-        <action id="EnhancedVcsDetails" class="de.kostue.ui.actions.EnhancedVcsDetails" text="Show and Copy Enhanced Details" icon="AllIcons.Actions.PreviewDetailsVertically">
+        <action id="EnhancedVcsDetails" class="de.kostue.ui.actions.EnhancedVcsDetails" text="Show Enhanced Details" icon="AllIcons.Actions.PreviewDetailsVertically">
             <add-to-group group-id="CommittedChangesToolbar" anchor="first"/>
         </action>
     </actions>
