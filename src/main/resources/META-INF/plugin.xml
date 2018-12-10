@@ -18,6 +18,6 @@
 
     <actions>
         <action id="CommittedChanges.Details" class="de.kostue.ui.actions.EnhancedVcsDetails"/>
-
+        <action id="$Copy" class="de.kostue.ui.actions.EnhancedCopyAction" overrides="true"/>
     </actions>
 </idea-plugin>

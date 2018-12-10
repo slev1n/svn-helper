@@ -45,7 +45,7 @@ public class EnhancedVcsDetails extends AnAction implements DumbAware {
         ChangeList[] changeLists = e.getData(CHANGE_LISTS);
 
         e.getPresentation().setEnabled(
-                e.getProject() != null && changeLists != null && changeLists.length >=1 && changeLists[0] instanceof CommittedChangeList);
+                e.getProject() != null && changeLists != null && changeLists.length >= 1 && changeLists[0] instanceof CommittedChangeList);
     }
 
 
@@ -59,7 +59,7 @@ public class EnhancedVcsDetails extends AnAction implements DumbAware {
 
     public static void showDetailsPopup(@NotNull Project project, @NotNull ChangeList[] changeLists) {
         String details =
-                format("<html><head>%s</head><body>%s</body></html>", getCssFontDeclaration(getLabelFont()), getDetails(project, changeLists));
+                format("<html><head>%s</head><body>%s</body></html>", getCssFontDeclaration(getLabelFont()), getDetails(changeLists));
         JEditorPane editorPane = new JEditorPane(HTML_MIME, details);
         editorPane.setEditable(false);
         editorPane.setBackground(HintUtil.getInformationColor());
@@ -77,21 +77,21 @@ public class EnhancedVcsDetails extends AnAction implements DumbAware {
     }
 
     @NotNull
-    private static String getDetails(@NotNull Project project, @NotNull ChangeList[] changeLists) {
+    public static String getDetails(@NotNull ChangeList[] changeLists) {
         String details = stream(changeLists).map(changeList -> {
             CommittedChangeList c = (CommittedChangeList) changeList;
             return join(packNullables(
                     getNumber(c),
                     getCommitter(c),
                     getCommittedDate(c),
-                    formatCommittedMessage(project, c.getComment()),
+                    formatCommittedMessage(c.getComment()),
                     getCustomDetails(c)
             ), "<br>");
         }).collect(Collectors.joining("<br><br>"));
         SvnHelperAppState state = SvnHelperAppState.getInstance();
         String template = state.template;
         if (template != null && !template.equals("")) {
-            details = applyTemplate(details,template);
+            details = applyTemplate(details, template);
         }
         if (state.autoCopyContent) {
             copyDetailToClipboard(details);
@@ -100,7 +100,7 @@ public class EnhancedVcsDetails extends AnAction implements DumbAware {
     }
 
     private static String applyTemplate(String details, String template) {
-        return template.replace(PLACEHOLDER,details);
+        return template.replace(PLACEHOLDER, details);
     }
 
     @NotNull
@@ -111,11 +111,11 @@ public class EnhancedVcsDetails extends AnAction implements DumbAware {
     }
 
     public static String cleanTagPerservingLineBreaks(String html) {
-        return html.replace("<br>","\n");
+        return html.replace("<br>", "\n");
     }
 
-    private static String formatCommittedMessage(Project project, String comment) {
-        return "Message: <br>" + comment +"<br> ----";
+    private static String formatCommittedMessage(String comment) {
+        return "Message: <br>" + comment + "<br>----";
     }
 
     @Nullable
@@ -144,7 +144,7 @@ public class EnhancedVcsDetails extends AnAction implements DumbAware {
         AbstractVcs vcs = changeList.getVcs();
         return changeList.getChanges().stream().map(c -> {
             String formattedPath;
-            if ( c.getVirtualFile() != null) {
+            if (c.getVirtualFile() != null) {
                 formattedPath = c.getVirtualFile().getCanonicalFile().toString().replace(vcs.getProject().getBasePath(), "").replace("file://", "");
             } else {
                 formattedPath = c.toString();
