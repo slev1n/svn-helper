@@ -21,7 +21,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Optional;
 import java.util.stream.Collectors;
