@@ -39,6 +39,8 @@ import static java.util.Arrays.stream;
 
 public class EnhancedVcsDetails extends AnAction implements DumbAware {
 
+    public static final String PLACEHOLDER = "{content}";
+
     @Override
     public void update(@NotNull AnActionEvent e) {
         ChangeList[] changeLists = e.getData(CHANGE_LISTS);
@@ -99,7 +101,7 @@ public class EnhancedVcsDetails extends AnAction implements DumbAware {
     }
 
     private static String applyTemplate(String details, String template) {
-        return MessageFormat.format(template,details);
+        return template.replace(PLACEHOLDER,details);
     }
 
     @NotNull

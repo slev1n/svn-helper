@@ -41,7 +41,7 @@ compileJava {
 
 patchPluginXml {
     changeNotes """
-      Its the first Version:)<br>
+      Refactor template implementation, to avoid escaping<br>
       """
 }
 
