@@ -5,8 +5,8 @@
     <vendor email="matthias.kolodzik@gmx.de" url="https://github.com/slev1n/svn-helper">KoStue</vendor>
     <depends>com.intellij.modules.platform</depends>
 
-    <description>Just a little Helper for working with SVN. It shows enhanced details (inclusive file paths and sate) on
-        repository view -> Show Details.
+    <description>Just a little Helper for working with SVN. It shows enhanced details (inclusive file paths and state) on
+        repository view -> 'Show Details'. Also adds the functionality to auto copy the commit(s) with 'strg+c' or 'Show Details'
     </description>
 
     <depends>com.intellij.modules.lang</depends>
