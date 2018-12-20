@@ -78,19 +78,23 @@ public class EnhancedVcsDetails extends AnAction implements DumbAware {
 
     @NotNull
     public static String getDetails(@NotNull ChangeList[] changeLists) {
+        SvnHelperAppState state = SvnHelperAppState.getInstance();
+        String template = state.template;
         String details = stream(changeLists).map(changeList -> {
             CommittedChangeList c = (CommittedChangeList) changeList;
-            return join(packNullables(
+            String commitText = join(packNullables(
                     getNumber(c),
                     getCommitter(c),
                     getCommittedDate(c),
                     formatCommittedMessage(c.getComment()),
                     getCustomDetails(c)
             ), "<br>");
+            if (template != null && !template.equals("") && state.applyTemplateEachCommit ) {
+                commitText = applyTemplate(commitText, template);
+            }
+            return commitText;
         }).collect(Collectors.joining("<br><br>"));
-        SvnHelperAppState state = SvnHelperAppState.getInstance();
-        String template = state.template;
-        if (template != null && !template.equals("")) {
+        if (template != null && !template.equals("") && !state.applyTemplateEachCommit ) {
             details = applyTemplate(details, template);
         }
         if (state.autoCopyContent) {
@@ -99,18 +103,18 @@ public class EnhancedVcsDetails extends AnAction implements DumbAware {
         return details;
     }
 
-    private static String applyTemplate(String details, String template) {
-        return template.replace(PLACEHOLDER, details);
+    private static String applyTemplate(String value, String template) {
+        return template.replace(PLACEHOLDER, value);
     }
 
     @NotNull
     private static void copyDetailToClipboard(String completeDetail) {
-        StringSelection stringSelection = new StringSelection(cleanTagPerservingLineBreaks(completeDetail));
+        StringSelection stringSelection = new StringSelection(cleanTagPreservingLineBreaks(completeDetail));
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(stringSelection, null);
     }
 
-    public static String cleanTagPerservingLineBreaks(String html) {
+    public static String cleanTagPreservingLineBreaks(String html) {
         return html.replace("<br>", "\n");
     }
 

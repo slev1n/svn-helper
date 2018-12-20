@@ -16,6 +16,7 @@ import org.jetbrains.annotations.Nullable;
 )
 public class SvnHelperAppState implements PersistentStateComponent<SvnHelperAppState> {
     public boolean autoCopyContent = false;
+    public boolean applyTemplateEachCommit = false;
     public String template="";
 
     public static SvnHelperAppState getInstance() {
@@ -35,6 +36,9 @@ public class SvnHelperAppState implements PersistentStateComponent<SvnHelperAppS
 
     public boolean isAutoCopyContentChanged(boolean enabled) {
         return autoCopyContent != enabled;
+    }
+    public boolean isApplyTemplateEachCommitChanged(boolean enabled) {
+        return applyTemplateEachCommit != enabled;
     }
     public boolean isTemplateChanged(String value) {
         return !template.equals(value);

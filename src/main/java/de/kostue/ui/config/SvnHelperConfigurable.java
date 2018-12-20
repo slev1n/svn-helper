@@ -47,6 +47,9 @@ public class SvnHelperConfigurable extends BaseConfigurable {
         if (isAutoCopyChanged()) {
             state.autoCopyContent = form.isAutoCopyContentEnabled();
         }
+        if (isApplyTemplateEachCommitChanged()) {
+            state.applyTemplateEachCommit = form.isApplyTemplateEachCommitEnabled();
+        }
         if (isTemplateChanged()) {
             state.template = form.getTemplate();
         }
@@ -54,12 +57,17 @@ public class SvnHelperConfigurable extends BaseConfigurable {
 
     @Override
     public boolean isModified() {
-        return isAutoCopyChanged() || isTemplateChanged();
+        return isAutoCopyChanged() || isTemplateChanged() || isApplyTemplateEachCommitChanged();
     }
 
     private boolean isAutoCopyChanged() {
         SvnHelperAppState state = SvnHelperAppState.getInstance();
         return state.isAutoCopyContentChanged(form.isAutoCopyContentEnabled());
+    }
+
+    private boolean isApplyTemplateEachCommitChanged() {
+        SvnHelperAppState state = SvnHelperAppState.getInstance();
+        return state.isApplyTemplateEachCommitChanged(form.isApplyTemplateEachCommitEnabled());
     }
 
     private boolean isTemplateChanged() {
@@ -72,6 +80,7 @@ public class SvnHelperConfigurable extends BaseConfigurable {
         initComponent();
         SvnHelperAppState state = SvnHelperAppState.getInstance();
         form.setAutoCopyContentState(state.autoCopyContent);
+        form.setApplyTemplateEachCommitState(state.applyTemplateEachCommit);
         form.setTemplate(state.template);
     }
 

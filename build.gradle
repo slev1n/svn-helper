@@ -33,7 +33,7 @@ idea {
     }
 }
 group 'de.kostue'
-version '1.0-SNAPSHOT'
+version '1.1'
 
 compileJava {
     options.encoding = "UTF-8"
@@ -41,7 +41,7 @@ compileJava {
 
 patchPluginXml {
     changeNotes """
-      Refactor template implementation, to avoid escaping<br>
+      add option for apply template each commit<br>
       """
 }
 

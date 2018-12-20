@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>de.kostue.svn-helper</id>
     <name>SVN Helper</name>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <vendor email="matthias.kolodzik@gmx.de" url="https://github.com/slev1n/svn-helper">KoStue</vendor>
     <depends>com.intellij.modules.platform</depends>
 
