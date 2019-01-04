@@ -6,6 +6,7 @@ import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.roots.FileIndexFacade;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
 import com.intellij.openapi.vcs.AbstractVcs;
 import com.intellij.openapi.vcs.CachingCommittedChangesProvider;
@@ -16,6 +17,7 @@ import de.kostue.config.SvnHelperAppState;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.SystemIndependent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -149,7 +151,10 @@ public class EnhancedVcsDetails extends AnAction implements DumbAware {
         return changeList.getChanges().stream().map(c -> {
             String formattedPath;
             if (c.getVirtualFile() != null) {
-                formattedPath = c.getVirtualFile().getCanonicalFile().toString().replace(vcs.getProject().getBasePath(), "").replace("file://", "");
+                String moduleFilePath = FileIndexFacade.getInstance(vcs.getProject()).getModuleForFile(c.getVirtualFile()).getModuleFilePath();
+                String moduleBasePath = moduleFilePath.substring(0,moduleFilePath.lastIndexOf('/'));
+                String canonicalFilePath = c.getVirtualFile().getCanonicalFile().toString();
+                formattedPath = canonicalFilePath.replace(moduleBasePath, "").replace("file://", "");
             } else {
                 formattedPath = c.toString();
             }

@@ -33,7 +33,7 @@ idea {
     }
 }
 group 'de.kostue'
-version '1.1'
+version '1.2'
 
 compileJava {
     options.encoding = "UTF-8"
@@ -41,7 +41,7 @@ compileJava {
 
 patchPluginXml {
     changeNotes """
-      add option for apply template each commit<br>
+      fix absolute path shown instead relative path, when module location base path is different from project location base path
       """
 }
 
